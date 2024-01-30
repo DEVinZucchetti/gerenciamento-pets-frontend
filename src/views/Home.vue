@@ -8,6 +8,8 @@
 <script>
 import axios from 'axios'
 
+import SpecieService from '../services/SpecieService'
+
 export default {
   data() {
     return {
@@ -15,10 +17,9 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get('http://127.0.0.1:8000/api/species')
-      .then((response) => {
-        this.species = response.data
+    SpecieService.getAllSpecies()
+      .then((data) => {
+        this.species = data
       })
       .catch((error) => {
         alert('Houve um erro')
@@ -31,15 +32,15 @@ export default {
 </script>
 
 <style scoped>
- .title {
-    margin-top: 20px;
-    margin-left: 20px;
- }
- .list-species {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 20px;
- }
+.title {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.list-species {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+}
 </style>
