@@ -1,19 +1,31 @@
 <template>
   <h1 class="title">Espécies cadastradas</h1>
   <div class="list-species">
-    <v-card v-for="specie in species" :key="specie.id" width="30%" :title="specie.name" link />
+    <v-card
+      v-for="specie in species"
+      :key="specie.id"
+      width="30%"
+      :title="specie.name"
+      link
+      @click="handleRedirect(specie.name)"
+    />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 import SpecieService from '../services/SpecieService'
+
+
 
 export default {
   data() {
     return {
       species: []
+    }
+  },
+  methods: {
+    handleRedirect(name) {
+        this.$router.push(`/pets/${name}`);
     }
   },
   mounted() {
@@ -42,5 +54,8 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 20px;
+}
+.item {
+  width: 30%;
 }
 </style>
