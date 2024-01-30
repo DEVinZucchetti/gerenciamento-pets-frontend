@@ -7,15 +7,13 @@
       width="30%"
       :title="specie.name"
       link
-      @click="handleRedirect(specie.name)"
+      @click="handleRedirect(specie.id)"
     />
   </div>
 </template>
 
 <script>
 import SpecieService from '../services/SpecieService'
-
-
 
 export default {
   data() {
@@ -24,8 +22,8 @@ export default {
     }
   },
   methods: {
-    handleRedirect(name) {
-        this.$router.push(`/pets/${name}`);
+    handleRedirect(id) {
+        this.$router.push(`/pets/${id}`);
     }
   },
   mounted() {
