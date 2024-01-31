@@ -65,6 +65,8 @@ import SpecieService from '../services/SpecieService'
 import RaceService from '../services/RaceService'
 import PetService from '../services/PetService'
 
+import {schemaPetForm} from '../validations/pet.validations'
+
 export default {
   data() {
     return {
