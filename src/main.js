@@ -1,5 +1,7 @@
 import './assets/main.css'
 
+import VuetifyToast from 'vuetify-toast-snackbar'
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -21,6 +23,34 @@ const vuetify = createVuetify({
 const app = createApp(App)
 
 app.use(router).use(vuetify)
+/*
+.use(VuetifyToast, {
+	x: 'right', // default
+	y: 'bottom', // default
+	color: 'info', // default
+	icon: 'info',
+	iconColor: '', // default
+	classes: [
+		'body-2'
+	],
+	timeout: 3000, // default
+	dismissable: true, // default
+	multiLine: false, // default
+	vertical: false, // default
+	queueable: false, // default
+	showClose: false, // default
+	closeText: '', // default
+	closeIcon: 'close', // default
+	closeColor: '', // default
+	slot: [], //default
+	shorts: {
+		custom: {
+			color: 'purple'
+		}
+	},
+	property: '$toast' // default
+})
+*/
 
 app.mount('#app')
 
