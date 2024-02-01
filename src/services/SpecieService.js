@@ -7,11 +7,7 @@ class SpecieService {
 
     async getAllSpecies() {
         const response = await api
-            .get('species', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("@token_petshop")}`
-                }
-            })
+            .get('species')
         return response.data
     }
 }

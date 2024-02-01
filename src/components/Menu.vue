@@ -11,7 +11,7 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <router-link to="/">
+      <router-link to="/home">
         <v-list-item prepend-icon="mdi-folder" title="Home" value="myfiles"> </v-list-item>
       </router-link>
 
