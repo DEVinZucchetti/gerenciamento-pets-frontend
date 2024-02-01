@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from "./api";
 
 class SpecieService {
 
@@ -6,8 +6,12 @@ class SpecieService {
     }
 
     async getAllSpecies() {
-        const response = await axios
-        .get('http://127.0.0.1:8000/api/species')
+        const response = await api
+            .get('species', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("@token_petshop")}`
+                }
+            })
         return response.data
     }
 }

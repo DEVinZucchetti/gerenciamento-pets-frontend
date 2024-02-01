@@ -71,6 +71,7 @@ import AuthenticationService from '../services/AuthenticationService'
             })
             .then((data) => {
                 console.log(data)
+                localStorage.setItem("@token_petshop", data.data.token)
                 this.$router.push("/home")
             })
             .catch((error) => {
