@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <Menu />
+    <Menu v-if="this.$route.path !== '/'" />
     <v-main>
        <router-view></router-view>
     </v-main>
