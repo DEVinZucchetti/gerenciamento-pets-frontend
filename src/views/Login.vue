@@ -73,6 +73,7 @@ import AuthenticationService from '../services/AuthenticationService'
             .then((data) => {
                 api.defaults.headers.common['Authorization'] = `Bearer ${data.data.token}` 
                 localStorage.setItem("@token_petshop", data.data.token)
+                localStorage.setItem("@permissions_petshop", JSON.stringify(data.data.permissions))
                 this.$router.push("/home")
             })
             .catch((error) => {
