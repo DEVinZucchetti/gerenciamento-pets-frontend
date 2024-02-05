@@ -1,6 +1,6 @@
 import './assets/main.css'
 
-import VuetifyToast from 'vuetify-toast-snackbar'
+import '@mdi/font/css/materialdesignicons.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
