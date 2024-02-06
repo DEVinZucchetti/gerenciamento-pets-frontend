@@ -1,5 +1,6 @@
 <template>
   <h1>Minha tarefas</h1>
+  <span v-if="messageError">{{messageError}}</span>
   <form @submit.prevent="handleAddItem">
     <input placeholder="Digite sua tarefa" v-model="description" data-test="input-description" />
     <button data-test="submit-button" type="submit">Cadastrar</button>
@@ -15,7 +16,8 @@ export default {
   data() {
     return {
       description: '',
-      list: []
+      list: [],
+      messageError: ''
     }
   },
   methods: {
@@ -23,6 +25,7 @@ export default {
       console.log('entrou handleAddItem')
 
       if (this.description.length < 5) {
+        this.messageError = "A descrição é pequena demais."
       } else {
         this.list = [...this.list, this.description]
         this.description = ''

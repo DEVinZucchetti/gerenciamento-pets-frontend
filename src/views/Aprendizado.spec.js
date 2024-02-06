@@ -33,6 +33,8 @@ describe("Testa a tela de aprendizado", () => {
 
         await flushPromises()
 
+        expect(component.text()).toContain("A descrição é pequena demais.")
+
         const list = component.get("[data-test='list']")
 
         expect(list.text()).not.toContain("abc")
