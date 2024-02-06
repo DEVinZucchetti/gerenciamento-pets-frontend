@@ -1,12 +1,12 @@
 <template>
   <h1>Minha tarefas</h1>
   <form @submit.prevent="handleAddItem">
-    <input placeholder="Digite sua tarefa" v-model="description" />
-    <button type="submit">Cadastrar</button>
+    <input placeholder="Digite sua tarefa" v-model="description" data-test="input-description" />
+    <button data-test="submit-button" type="submit">Cadastrar</button>
   </form>
   <hr />
-  <ol>
-     <li v-for="item in list" :key="item">{{item}}</li>   
+  <ol data-test="list">
+    <li v-for="item in list" :key="item">{{ item }}</li>
   </ol>
 </template>
 
@@ -20,8 +20,13 @@ export default {
   },
   methods: {
     handleAddItem() {
-      this.list = [...this.list, this.description]
-      this.description = ''
+      console.log('entrou handleAddItem')
+
+      if (this.description.length < 5) {
+      } else {
+        this.list = [...this.list, this.description]
+        this.description = ''
+      }
     }
   }
 }
