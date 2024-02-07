@@ -19,7 +19,7 @@
         <v-list-item prepend-icon="mdi-star" title="Novo pet" value="starred"> </v-list-item>
       </router-link>
 
-      <router-link to="/veterinarios" v-if="permissions.includes('get-profissionals')">
+      <router-link to="/veterinarios" v-if="permissions?.includes('get-profissionals')">
         <v-list-item prepend-icon="mdi-star" title="Profissionais" value="starred"> </v-list-item>
       </router-link>
 
