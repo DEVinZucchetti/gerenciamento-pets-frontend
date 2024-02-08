@@ -103,7 +103,7 @@ describe('Tela de cadastro de pet', () => {
     })
 
 
-    it("Espera-se que ao submeter o formulário sem as informações obrigatórias, exiba os erros em tela", () => {
+    it("Espera-se que ao submeter o formulário sem as informações obrigatórias, exiba os erros em tela", async () => {
         const component = mount(FormPet, {
             global: {
                 plugins: [vuetify]
@@ -112,7 +112,19 @@ describe('Tela de cadastro de pet', () => {
         
         component.getComponent(concatId("submit-button")).trigger("submit")
 
+        await flushPromises()
+
         expect(component.text()).toContain("O nome é obrigatório")
+        expect(component.text()).toContain("O tamanho é obrigatório")
+        expect(component.text()).toContain("A espécie é obrigatória")
+        expect(component.text()).toContain("A raça é obrigatória")
+
+        component.getComponent(concatId("input-name")).setValue("Totozinho")
+        component.getComponent(concatId("submit-button")).trigger("submit")
+
+        await flushPromises()
+
+        expect(component.text()).not.toContain("O nome é obrigatório")
 
 
     })
