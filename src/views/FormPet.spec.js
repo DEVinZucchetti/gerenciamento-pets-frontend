@@ -95,11 +95,11 @@ describe('Tela de cadastro de pet', () => {
             size: 'LARGE',
             race_id: '1',
             specie_id: '2',
-            weight: '6.8'
+            weight: '6.8',
+            description: ''
         }
         )
-        // verificar se realemente foi digitado o valor 25 
-        // expect(component.getComponent(concatId("input-age")).element).toEqual("25")
+
     })
 
 
@@ -125,7 +125,32 @@ describe('Tela de cadastro de pet', () => {
         await flushPromises()
 
         expect(component.text()).not.toContain("O nome é obrigatório")
+    })
 
+    it("Espera-se que ao submeter o formulário e receber um error, exiba um mensagem de error na tela", async () => {
 
+        const createPet = vi.spyOn(PetService, 'createPet').mockRejectedValue(new Error())
+
+        const component = mount(FormPet, {
+            global: {
+                plugins: [vuetify]
+            }
+        })
+
+        component.getComponent(concatId("input-name")).setValue("Totozinho")
+        component.getComponent(concatId("input-age")).setValue("12")
+        component.getComponent(concatId("input-weight")).setValue("6.8")
+
+        component.getComponent(concatId("select-size")).setValue("LARGE")
+        component.getComponent(concatId("select-race")).setValue("1")
+        component.getComponent(concatId("select-specie")).setValue("2")
+
+        component.getComponent(concatId("submit-button")).trigger("submit")
+
+        await flushPromises()
+
+        expect(component.text()).toContain("Houve um erro ao cadastrar o pet")
+
+        
     })
 })

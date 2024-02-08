@@ -5,14 +5,22 @@
 
   <form @submit.prevent="handleSubmit">
     <v-card width="80%" class="mx-auto px-6 mt-4" title="Cadastro de pet">
-      <v-row>
+      <v-alert
+        v-if="showError"
+        color="error"
+        closable
+        title="Houve um erro ao cadastrar o pet"
+        class="mb-8"
+      ></v-alert>
+
+      <v-row class="mt8">
         <v-col cols="12" md="8">
           <v-text-field
             label="Nome"
             variant="outlined"
             v-model="name"
             :error-messages="errors.name"
-             data-test="input-name"
+            data-test="input-name"
           />
         </v-col>
         <v-col cols="12" md="2" sm="6">
@@ -32,7 +40,7 @@
             variant="outlined"
             v-model="weight"
             :error-messages="errors.weight"
-             data-test="input-weight"
+            data-test="input-weight"
           />
         </v-col>
       </v-row>
@@ -77,8 +85,21 @@
         </v-col>
       </v-row>
 
+      <v-row>
+        <v-col cols="12" md="12">
+          <v-textarea
+            label="Descrição"
+            variant="outlined"
+            v-model="description"
+            data-test="input-description"
+          />
+        </v-col>
+      </v-row>
+
       <v-card-actions class="d-flex justify-end">
-        <v-btn color="orange" type="submit" variant="flat" data-test="submit-button"> Cadastrar </v-btn>
+        <v-btn color="orange" type="submit" variant="flat" data-test="submit-button">
+          Cadastrar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </form>
@@ -104,12 +125,14 @@ export default {
       size: '',
       specie_id: '',
       race_id: '',
+      description: '',
 
       itemsSize: optionsSize,
       itemsSpecies: [],
       itemsRaces: [],
       success: false,
-      errors: {}
+      errors: {},
+      showError: false
     }
   },
   mounted() {
@@ -132,7 +155,8 @@ export default {
           size: this.size,
           race_id: this.race_id,
           specie_id: this.specie_id,
-          weight: this.weight
+          weight: this.weight,
+          description: this.description
         }
 
         schemaPetForm.validateSync(body, { abortEarly: false })
@@ -149,7 +173,7 @@ export default {
             this.race_id = ''
           })
           .catch(() => {
-            alert('Houve um erro ao cadastrar')
+            this.showError = true
           })
       } catch (error) {
         if (error instanceof yup.ValidationError) {
