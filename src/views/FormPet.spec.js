@@ -57,16 +57,35 @@ describe('Tela de cadastro de pet', () => {
     })
 
     it('Espera-se que a o input de idade do pet aceite somente números', () => {
+
+        const createPet = vi.spyOn(PetService, 'createPet').mockResolvedValue({})
+
         const component = mount(FormPet, {
             global: {
                 plugins: [vuetify]
             }
         })
 
-        component.getComponent(concatId("input-age")).setValue("25d")
 
-        // verificar se realemente foi digitado o valor 25 
-        // expect(component.getComponent(concatId("input-age")).element).toEqual("25")
+        component.getComponent(concatId("input-name")).setValue("Totozinho")
+        component.getComponent(concatId("input-age")).setValue("8")
+        component.getComponent(concatId("input-weight")).setValue("6.8")
+
+        component.getComponent(concatId("select-size")).setValue("LARGE")
+        component.getComponent(concatId("select-race")).setValue("1")
+        component.getComponent(concatId("select-specie")).setValue("2")
+
+        component.getComponent(concatId("submit-button")).trigger("submit")
+
+        expect(createPet).toBeCalledWith({
+            name: 'Totozinho',
+            age: '8',
+            size: 'LARGE',
+            race_id: '1',
+            specie_id: '2',
+            weight: '6.8',
+            description: ''
+        } )
     })
 
     it('Espera-se que ao submenter o formulário, seja cadastrado o pet com os valores correto', () => {
@@ -109,7 +128,7 @@ describe('Tela de cadastro de pet', () => {
                 plugins: [vuetify]
             }
         })
-        
+
         component.getComponent(concatId("submit-button")).trigger("submit")
 
         await flushPromises()
@@ -151,6 +170,6 @@ describe('Tela de cadastro de pet', () => {
 
         expect(component.text()).toContain("Houve um erro ao cadastrar o pet")
 
-        
+
     })
 })
