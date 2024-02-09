@@ -4,6 +4,7 @@ export const formatMoney = (value) => {
       return value;
     }
   
+    
     // Formata o número como moeda brasileira (real)
     const formatoMoeda = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
