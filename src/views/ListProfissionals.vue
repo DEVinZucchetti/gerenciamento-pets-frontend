@@ -7,7 +7,12 @@
     <form @submit.prevent="handleSearch">
       <v-row>
         <v-col cols="12">
-          <v-text-field placeholder="Pesquise por uma informação" variant="outlined" v-model="text" />
+          <v-text-field
+            placeholder="Pesquise por uma informação"
+            variant="outlined"
+            v-model="text"
+            data-test="input-text"
+          />
         </v-col>
       </v-row>
     </form>
@@ -20,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="professional in professionals" :key="professional.id">
+        <tr v-for="professional in professionals" :key="professional.id" data-test="row-table">
           <td>{{ professional.people.name }}</td>
           <td>{{ professional.speciality }}</td>
           <td>{{ professional.register }}</td>
@@ -108,8 +113,9 @@ export default {
           alert('Erro ao cadastrar')
         })
     },
-    handleSearch(){
-        this.getList()
+    handleSearch() {
+       console.log("SUBMETENDO -------------------------------------------")
+      this.getList()
     },
     getList() {
       ProfessionalService.getAllProfessionals(this.text)
