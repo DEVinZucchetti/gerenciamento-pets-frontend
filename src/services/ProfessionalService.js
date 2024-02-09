@@ -7,8 +7,8 @@ class ProfessionalService {
         return response.data
     }
 
-    async getAllProfessionals() {
-        const response = await api.get(`profissionals`)
+    async getAllProfessionals(text) {
+        const response = await api.get(`profissionals?text=${text}`)
         return response.data
     }
 }
