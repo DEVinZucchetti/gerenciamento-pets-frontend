@@ -60,7 +60,7 @@ export default {
         AuthenticationService.logout()
         .then(() => {
             this.$router.push('/')
-            localStorage.clear()
+            localStorage.clear() // apagar tudo do localstorage desse dominio
         })
       }
     }

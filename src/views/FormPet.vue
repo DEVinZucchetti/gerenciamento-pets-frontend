@@ -41,6 +41,7 @@
             v-model="weight"
             :error-messages="errors.weight"
             data-test="input-weight"
+            step="0.1"
           />
         </v-col>
       </v-row>
