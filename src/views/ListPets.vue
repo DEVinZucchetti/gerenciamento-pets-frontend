@@ -28,7 +28,9 @@
               </template>
               <v-list>
                 <v-list-item> <v-list-item-title>Editar</v-list-item-title> </v-list-item>
-                <v-list-item> <v-list-item-title>Deletar</v-list-item-title> </v-list-item>
+                <v-list-item @click="handleDeletePet(pet.id)">
+                  <v-list-item-title>Deletar</v-list-item-title>
+                </v-list-item>
               </v-list>
             </v-menu>
           </td>
@@ -66,6 +68,14 @@ export default {
           return name
         }
       }
+    },
+    handleDeletePet(petId) {
+      PetService.deleteOnePet(petId)
+        .then(() => {
+          alert('Deletado com sucesso')
+          this.pets = this.pets.filter(item => item.id !== petId)
+        })
+        .catch(() => alert('Erro ao deletar'))
     }
   },
   mounted() {

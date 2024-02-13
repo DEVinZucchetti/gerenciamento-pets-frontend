@@ -161,7 +161,7 @@ export default {
         }
 
         schemaPetForm.validateSync(body, { abortEarly: false })
-
+       
         PetService.createPet(body)
           .then(() => {
             this.success = true
