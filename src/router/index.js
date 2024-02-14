@@ -21,6 +21,11 @@ const router = createRouter({
       component: Home
     },
     {
+      path: '/pets/editar/:id',
+      name: 'FormPetEdit',
+      component: FormPet
+    },
+    {
       path: '/pets/:id',
       name: 'ListPets',
       component: ListPets
@@ -29,7 +34,7 @@ const router = createRouter({
       path: '/pets/novo',
       name: 'FormPet',
       component: FormPet
-    },
+    }, 
     {
       path: '/veterinarios',
       name: 'ListProfissionals',

@@ -16,6 +16,16 @@ class PetService {
         const response = await api.delete(`pets/${petId}`)
         return response.data
     }
+
+    async findOnePet(petId) {
+        const response = await api.get(`pets/${petId}`)
+        return response.data
+    }
+
+    async editPet(body, petId) {
+        const response = await api.put(`pets/${petId}`, body)
+        return response.data
+    }
 }
 
 export default new PetService();

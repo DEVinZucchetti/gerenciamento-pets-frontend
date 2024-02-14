@@ -27,7 +27,9 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item> <v-list-item-title>Editar</v-list-item-title> </v-list-item>
+                <v-list-item @click="handleRedirectToEdit(pet.id)">
+                  <v-list-item-title>Editar</v-list-item-title>
+                </v-list-item>
                 <v-list-item @click="handleDeletePet(pet.id)">
                   <v-list-item-title>Deletar</v-list-item-title>
                 </v-list-item>
@@ -73,9 +75,12 @@ export default {
       PetService.deleteOnePet(petId)
         .then(() => {
           alert('Deletado com sucesso')
-          this.pets = this.pets.filter(item => item.id !== petId)
+          this.pets = this.pets.filter((item) => item.id !== petId)
         })
         .catch(() => alert('Erro ao deletar'))
+    },
+    handleRedirectToEdit(petId) {
+      this.$router.push(`/pets/editar/${petId}`)
     }
   },
   mounted() {

@@ -4,7 +4,11 @@
   </v-snackbar>
 
   <form @submit.prevent="handleSubmit">
-    <v-card width="80%" class="mx-auto px-6 mt-4" title="Cadastro de pet">
+    <v-card
+      width="80%"
+      class="mx-auto px-6 mt-4"
+      :title="petId ? 'Edição de pet' : 'Cadastro de pet'"
+    >
       <v-alert
         v-if="showError"
         color="error"
@@ -85,21 +89,9 @@
           />
         </v-col>
       </v-row>
-
-      <v-row>
-        <v-col cols="12" md="12">
-          <v-textarea
-            label="Descrição"
-            variant="outlined"
-            v-model="description"
-            data-test="input-description"
-          />
-        </v-col>
-      </v-row>
-
       <v-card-actions class="d-flex justify-end">
         <v-btn color="orange" type="submit" variant="flat" data-test="submit-button">
-          Cadastrar
+          {{ petId ? 'Editar' : 'Cadastrar' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -133,10 +125,22 @@ export default {
       itemsRaces: [],
       success: false,
       errors: {},
-      showError: false
+      showError: false,
+      petId: this.$route.params.id
     }
   },
   mounted() {
+    if (this.petId) {
+      PetService.findOnePet(this.petId).then((data) => {
+        this.name = data.name
+        this.age = data.age
+        this.weight = data.weight
+        this.size = data.size
+        this.race_id = data.race_id
+        this.specie_id = data.specie_id
+      })
+    }
+
     SpecieService.getAllSpecies()
       .then((data) => {
         this.itemsSpecies = data
@@ -161,21 +165,29 @@ export default {
         }
 
         schemaPetForm.validateSync(body, { abortEarly: false })
-       
-        PetService.createPet(body)
-          .then(() => {
-            this.success = true
 
-            this.name = ''
-            this.age = 1
-            this.weight = 1
-            this.size = ''
-            this.specie_id = ''
-            this.race_id = ''
-          })
-          .catch(() => {
-            this.showError = true
-          })
+        if (this.petId) {
+          PetService.editPet(body, this.petId)
+            .then(() => {
+              alert('Pet atualizado com sucesso')
+            })
+            .catch(() => alert('Houve um erro ao atualizar o pet'))
+        } else {
+          PetService.createPet(body)
+            .then(() => {
+              this.success = true
+
+              this.name = ''
+              this.age = 1
+              this.weight = 1
+              this.size = ''
+              this.specie_id = ''
+              this.race_id = ''
+            })
+            .catch(() => {
+              this.showError = true
+            })
+        }
       } catch (error) {
         if (error instanceof yup.ValidationError) {
           this.errors = captureErrorYup(error)
