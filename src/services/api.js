@@ -12,6 +12,7 @@ api.interceptors.request.use(async (config) => {
     return config;
 });
 
+/*
 api.interceptors.response.use(
     response => response,
     error => {
@@ -19,5 +20,6 @@ api.interceptors.response.use(
             window.location.href = '/';
         }
     });
+*/
 
 export default api
