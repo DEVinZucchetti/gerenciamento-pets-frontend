@@ -39,6 +39,9 @@
                 <v-list-item @click="handleExportProfilePet(pet.id, pet.pet_name)">
                   <v-list-item-title>Exportar</v-list-item-title>
                 </v-list-item>
+                 <v-list-item @click="handleRedirectVaccination(pet.id)">
+                  <v-list-item-title>Vacinação</v-list-item-title>
+                </v-list-item>
               </v-list>
             </v-menu>
           </td>
@@ -101,6 +104,9 @@ export default {
         alert("Baixado com sucesso. verifique sua pasta de downloads")
       })
       .catch(() => alert("Houve ao exportar a lista de pets"))
+    },
+    handleRedirectVaccination(petId) {
+      this.$router.push(`/pets/${petId}/vacinacao`)
     }
   },
   mounted() {

@@ -6,6 +6,7 @@ import FormPet from '../views/FormPet.vue'
 import Login from '../views/Login.vue'
 import ListProfissionals from '../views/ListProfissionals.vue'
 import FormUser from '../views/FormUser.vue'
+import VaccinationForm from '../views/VaccinationForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/usuarios',
       name: 'FormUser',
       component: FormUser
+    },
+    {
+      path: '/pets/:id/vacinacao',
+      name: 'VaccinationForm',
+      component: VaccinationForm
     }
   ]
 })
