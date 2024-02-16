@@ -68,6 +68,7 @@
 import { optionsStatus } from '@/constants/vaccine.constants'
 import VaccineService from '@/services/VaccineService'
 import ProfessionalService from '@/services/ProfessionalService'
+import { parseISO } from 'date-fns'
 
 export default {
   data() {
@@ -84,33 +85,17 @@ export default {
       itemsProfessionals: [],
       professional_id: '',
       vaccines: [
+        /*
         {
           dates: new Date(2024, 1, 15, 3, 20),
-          bar: true,
-          bar: 'red',
+          // bar: true,
+          bar: 'green',
           highlight: 'red',
           popover: {
             label: '20:00 Vacina anti-raiva'
           }
         },
-        {
-          dates: new Date(2024, 1, 15, 5, 20),
-          bar: true,
-          bar: 'red',
-          highlight: 'red',
-          popover: {
-            label: '21:00 Vacina do surto'
-          }
-        },
-        {
-          dates: new Date(2024, 1, 16),
-          bar: true,
-          bar: 'red',
-          highlight: 'red',
-          popover: {
-            label: 'Vacina anti-raiva e surto'
-          }
-        }
+        */
       ]
     }
   },
@@ -128,36 +113,53 @@ export default {
       VaccineService.createVaccine(body)
         .then(() => {
           alert('Vacinado com sucesso')
+          this.dialog = false
+          this.getVaccines()
         })
         .catch(() => alert('Houve um erro'))
     },
     getProfessionals() {
       ProfessionalService.getAllProfessionals()
         .then((data) => {
-          this.itemsProfessionals = data.map(item => ({
+          this.itemsProfessionals = data.map((item) => ({
             title: item.people.name,
             value: item.id
           }))
         })
         .catch(() => alert('Houve um erro ao pegar a lista'))
+    },
+    selectColor(status) {
+      switch (status) {
+        case 'DONE': {
+          return 'green'
+        }
+        case 'PENDING': {
+          return 'red'
+        }
+        default: {
+          return 'yellow'
+        }
+      }
+    },
+    getVaccines() {
+      VaccineService.getAllVaccinesByPet(this.$route.params.id)
+        .then((data) => {
+          this.vaccines = data.map((item) => ({
+            id: item.id,
+            dates: parseISO(item.date),
+            // bar: item.status === 'DONE' ? 'green' : 'red',
+            bar: this.selectColor(item.status),
+            popover: {
+              label: `${item.name} (${item.dose}ml)`
+            }
+          }))
+        })
+        .catch(() => alert('Houve'))
     }
   },
   mounted() {
     this.getProfessionals()
-
-    VaccineService.getAllVaccinesByPet(this.$route.params.id)
-    .then(data => {
-      this.vaccines = data.map(item => ({
-          dates: new Date(item.date),
-          bar: 'blue',
-          highlight: 'red',
-          popover: {
-            label: item.name
-          }
-        }))
-    })
-    .catch(() => alert("Houve"))
-
+    this.getVaccines()
   }
 }
 </script>
