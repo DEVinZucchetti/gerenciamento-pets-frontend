@@ -27,6 +27,10 @@
         <v-list-item prepend-icon="mdi-account" title="Usuários" value="users"> </v-list-item>
       </router-link>
 
+      <router-link to="/adocoes">
+        <v-list-item prepend-icon="mdi-star" title="Adoções" value="adoptions"> </v-list-item>
+      </router-link>
+
     </v-list>
     <div class="pa-8">
     <v-btn
