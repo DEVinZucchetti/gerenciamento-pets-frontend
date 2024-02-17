@@ -23,6 +23,7 @@
           <th class="text-left">CPF</th>
           <th class="text-left">Contato</th>
           <th class="text-left">email</th>
+           <th class="text-left">Aprovar</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +33,7 @@
           <td>{{ adoption.cpf }}</td>
           <td>{{ adoption.contact }}</td>
           <td>{{ adoption.email }}</td>
+           <td><button @click="handleApprove(adoption.id)">Aprovar</button></td>
         </tr>
       </tbody>
     </v-table>
@@ -58,6 +60,13 @@ export default {
           this.adoptions = data
         })
         .catch(() => alert('Houve um erro ao buscar as adocoes'))
+    },
+    handleApprove(adoptionId){
+      AdoptionService.approve({adoption_id: adoptionId })
+      .then(() => {
+        alert("Aprovado com sucesso")
+      })
+      .catch(() => alert("houve um erro"))
     }
   },
   mounted() {

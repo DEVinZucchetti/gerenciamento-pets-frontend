@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <Menu v-if="this.$route.path !== '/'" />
+    <Menu v-if="this.$route.path !== '/' && !this.$route.path.includes('/adocoes/documentos')"/>
     <v-main>
        <router-view></router-view>
     </v-main>
