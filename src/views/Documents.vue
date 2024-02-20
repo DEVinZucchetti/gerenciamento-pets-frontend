@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   data() {
@@ -60,35 +60,37 @@ export default {
       selectedFile1: null,
       selectedFile2: null,
       selectedFile3: null,
-      selectedFile4: null,
-    };
+      selectedFile4: null
+    }
   },
   methods: {
     async submitDocuments() {
-      const formData = new FormData();
-            formData.append('description', 'documentos');
 
-            console.log(JSON.stringify(this.selectedFile1[0]))
-      formData.append('file', this.selectedFile1[0]);
-   
+      const formData = new FormData()
+
+      formData.append('description', 'Documento de cpf do responsável')
+      formData.append('file', this.selectedFile1[0])
+      formData.append('id', this.$route.params.id)
+      formData.append('key', 'cpf')
+
       try {
         const response = await axios.post('http://localhost:8000/api/upload', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        
-        console.log('Resposta do servidor:', response.data);
-        
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+
+        console.log('Resposta do servidor:', response.data)
+
         // Limpar os campos de seleção após o envio
-        this.selectedFile1 = null;
-        this.selectedFile2 = null;
-        this.selectedFile3 = null;
-        this.selectedFile4 = null;
+        this.selectedFile1 = null
+        this.selectedFile2 = null
+        this.selectedFile3 = null
+        this.selectedFile4 = null
       } catch (error) {
-        console.error('Erro ao enviar documentos:', error);
+        console.error('Erro ao enviar documentos:', error)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
