@@ -10,7 +10,7 @@ import VaccinationForm from '../views/VaccinationForm.vue'
 import Adoptions from '../views/Adoptions.vue'
 
 import AdoptionsDocuments from '../views/Documents.vue'
-
+import Dashboard from '../views/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +64,11 @@ const router = createRouter({
       path: '/adocoes/documentos/:id',
       name: 'AdoptionsDocuments',
       component: AdoptionsDocuments
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     }
   ]
 })
