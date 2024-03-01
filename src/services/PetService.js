@@ -2,9 +2,13 @@ import api from "./api"
 import { saveAs } from "file-saver"
 
 class PetService {
-    
-    async createPet(body){
-        const response = await api.post('pets', body)
+
+    async createPet(body) {
+        const response = await api.post('pets', body, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         return response.data
     }
 
@@ -28,13 +32,13 @@ class PetService {
         return response.data
     }
 
-    async export(specie_id){
-        const response = await api.get(`pets/export?specie_id=${specie_id}`, {responseType: 'blob'})
+    async export(specie_id) {
+        const response = await api.get(`pets/export?specie_id=${specie_id}`, { responseType: 'blob' })
         saveAs(response.data, 'lista_de_pets.pdf')
     }
 
-    async exportProfilePet(petId, petName){
-        const response = await api.get(`pets/perfil?id=${petId}`, {responseType: 'blob'})
+    async exportProfilePet(petId, petName) {
+        const response = await api.get(`pets/perfil?id=${petId}`, { responseType: 'blob' })
         saveAs(response.data, `${petName}.pdf`)
     }
 
