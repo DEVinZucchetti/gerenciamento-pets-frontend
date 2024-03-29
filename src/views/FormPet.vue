@@ -135,7 +135,7 @@ export default {
       success: false,
       errors: {},
       showError: false,
-      petId: this.$route.params.id
+      petId: this.$route?.params?.id
     }
   },
   mounted() {
@@ -177,7 +177,8 @@ export default {
 
         const formData = new FormData()
         // pegando a posição do 0 do array para envio da primeira imagem
-        formData.append('photo', this.photo[0])
+        if(this.photo) formData.append('photo', this.photo[0])
+        
         formData.append('name', this.name)
         formData.append('age', this.age)
         formData.append('size', this.size)
